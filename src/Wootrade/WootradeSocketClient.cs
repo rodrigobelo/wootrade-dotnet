@@ -13,12 +13,12 @@ namespace Wootrade
 {
     public class WootradeSocketClient : SocketClient, IWootradeSocketClient
     {
-        private static WootradeSocketClientOptions defaultOptions = new WootradeSocketClientOptions();
+        private static WootradeSocketClientOptions defaultOptions = new WootradeSocketClientOptions(string.Empty);
 
         public WootradeSocketClient() : this(defaultOptions)
         { }
 
-        public WootradeSocketClient(SocketClientOptions exchangeOptions) : base("Wootrade", exchangeOptions, exchangeOptions.ApiCredentials == null ? null : new WootradeAuthenticationProvider(exchangeOptions.ApiCredentials))
+        public WootradeSocketClient(WootradeSocketClientOptions exchangeOptions) : base("Wootrade", exchangeOptions, exchangeOptions.ApiCredentials == null ? null : new WootradeAuthenticationProvider(exchangeOptions.ApiCredentials))
         {
             this.Spot = new WootradeSocketClientSpot(this, exchangeOptions);
         }
@@ -28,9 +28,9 @@ namespace Wootrade
         /// </summary>
         public IWootradeSocketClientSpot Spot { get; set; }
 
-        internal Task<CallResult<UpdateSubscription>> SubscribeInternal<T>(string url, Action<T> onData)
+        internal Task<CallResult<UpdateSubscription>> SubscribeInternal<T>(string url, object request, Action<T> onData)
         {
-            return Subscribe(url, null, url + NextId(), false, onData);
+            return Subscribe(url, request, url + NextId(), false, onData);
         }
 
         protected override Task<CallResult<bool>> AuthenticateSocket(SocketConnection s)
@@ -55,12 +55,12 @@ namespace Wootrade
 
         protected override bool MessageMatchesHandler(JToken message, string identifier)
         {
-            throw new NotImplementedException();
+            return true;
         }
 
         protected override Task<bool> Unsubscribe(SocketConnection connection, SocketSubscription s)
         {
-            throw new NotImplementedException();
+            return Task.FromResult(true);
         }
     }
 }

@@ -17,7 +17,7 @@ namespace Wootrade.Tests
             var client = TestHelpers.CreateSocketClient(socket);
 
             IWootradeStreamKlineData result = null;
-            client.Spot.SubscribeToKlineUpdatesAsync("ETHBTC", KlineInterval.OneMinute, (test) => result = test);
+            client.Spot.SubscribeToKlineUpdatesAsync("SPOT_BTC_USDT", KlineInterval.OneMinute, (test) => result = test);
 
             var data = new WootradeStreamKlineData()
             {

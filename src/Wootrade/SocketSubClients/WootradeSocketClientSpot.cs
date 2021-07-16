@@ -6,17 +6,22 @@ using Dawn;
 using Wootrade.Interfaces;
 using Wootrade.Model.Enums;
 using Wootrade.Model.MarketStream;
+using Wootrade.Model.Spot;
 using Wootrade.SocketSubClients.Interfaces;
 
 namespace Wootrade.SocketSubClients
 {
     internal class WootradeSocketClientSpot : IWootradeSocketClientSpot
     {
+        private readonly string applicationId;
+        private readonly string baseAddress;
         private readonly WootradeSocketClient baseClient;
 
-        public WootradeSocketClientSpot(WootradeSocketClient baseClient, SocketClientOptions exchangeOptions)
+        public WootradeSocketClientSpot(WootradeSocketClient baseClient, WootradeSocketClientOptions exchangeOptions)
         {
             this.baseClient = baseClient;
+            this.baseAddress = exchangeOptions.BaseAddress;
+            this.applicationId = exchangeOptions.ApplicationId;
         }
 
         public async Task<CallResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(string symbol,
@@ -26,12 +31,16 @@ namespace Wootrade.SocketSubClients
 
             var handler = new Action<WootradeStreamKlineData>(data => onMessage(data));
 
-            return await Subscribe("kline_1m", handler).ConfigureAwait(false);
+            var request = new WootradeStreamSubscriptionRequest("subscribe", $"{symbol}@kline_15m");
+
+            return await Subscribe(request, handler).ConfigureAwait(false);
         }
 
-        private async Task<CallResult<UpdateSubscription>> Subscribe<T>(string subscriptionTopic, Action<T> onData)
+        private async Task<CallResult<UpdateSubscription>> Subscribe<T>(object request, Action<T> onData)
         {
-            return await baseClient.SubscribeInternal(subscriptionTopic, onData).ConfigureAwait(false);
+            var url = baseAddress + "stream/" + this.applicationId;
+
+            return await baseClient.SubscribeInternal(url, request, onData).ConfigureAwait(false);
         }
     }
 }
