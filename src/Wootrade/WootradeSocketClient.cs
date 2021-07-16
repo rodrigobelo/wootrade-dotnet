@@ -1,18 +1,24 @@
 ﻿using System;
 using System.Threading.Tasks;
 using CryptoExchange.Net;
-using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Sockets;
 using Newtonsoft.Json.Linq;
+using Wootrade.Interfaces;
+using Wootrade.Model.Spot;
 using Wootrade.SocketSubClients;
 using Wootrade.SocketSubClients.Interfaces;
 
 namespace Wootrade
 {
-    public class WootradeSocketClient : SocketClient
+    public class WootradeSocketClient : SocketClient, IWootradeSocketClient
     {
-        public WootradeSocketClient(string clientName, SocketClientOptions exchangeOptions, AuthenticationProvider authenticationProvider) : base(clientName, exchangeOptions, authenticationProvider)
+        private static WootradeSocketClientOptions defaultOptions = new WootradeSocketClientOptions();
+
+        public WootradeSocketClient() : this(defaultOptions)
+        { }
+
+        public WootradeSocketClient(SocketClientOptions exchangeOptions) : base("Wootrade", exchangeOptions, exchangeOptions.ApiCredentials == null ? null : new WootradeAuthenticationProvider(exchangeOptions.ApiCredentials))
         {
             this.Spot = new WootradeSocketClientSpot(this, exchangeOptions);
         }
