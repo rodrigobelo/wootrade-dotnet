@@ -5,6 +5,8 @@ using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Sockets;
 using Newtonsoft.Json.Linq;
+using Wootrade.SocketSubClients;
+using Wootrade.SocketSubClients.Interfaces;
 
 namespace Wootrade
 {
@@ -12,6 +14,17 @@ namespace Wootrade
     {
         public WootradeSocketClient(string clientName, SocketClientOptions exchangeOptions, AuthenticationProvider authenticationProvider) : base(clientName, exchangeOptions, authenticationProvider)
         {
+            this.Spot = new WootradeSocketClientSpot(this, exchangeOptions);
+        }
+
+        /// <summary>
+        /// Spot streams
+        /// </summary>
+        public IWootradeSocketClientSpot Spot { get; set; }
+
+        internal Task<CallResult<UpdateSubscription>> SubscribeInternal<T>(string url, Action<T> onData)
+        {
+            return Subscribe(url, null, url + NextId(), false, onData);
         }
 
         protected override Task<CallResult<bool>> AuthenticateSocket(SocketConnection s)
