@@ -50,7 +50,7 @@ namespace Wootrade
 
         protected override bool MessageMatchesHandler(JToken message, object request)
         {
-            throw new NotImplementedException();
+            return true;
         }
 
         protected override bool MessageMatchesHandler(JToken message, string identifier)
