@@ -5,7 +5,7 @@ using Wootrade.Model.MarketStream;
 using Wootrade.Tests.Helpers;
 using Xunit;
 
-namespace Wootrade.Tests
+namespace Wootrade.Tests.Unit
 {
     public class WootradeNetTestSuite
     {
@@ -14,7 +14,7 @@ namespace Wootrade.Tests
         {
             // arrange
             var socket = new TestSocket();
-            var client = TestHelpers.CreateSocketClient(socket);
+            IWootradeSocketClient client = TestHelpers.CreateSocketClient(socket);
 
             IWootradeStreamKlineData result = null;
             client.Spot.SubscribeToKlineUpdatesAsync("SPOT_BTC_USDT", KlineInterval.OneMinute, (test) => result = test);

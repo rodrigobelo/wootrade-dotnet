@@ -4,12 +4,12 @@ namespace Wootrade.Model.Spot
 {
     public class WootradeSocketClientOptions : SocketClientOptions
     {
-        public WootradeSocketClientOptions(string baseAddress, string applicationId) : base(baseAddress)
+        public WootradeSocketClientOptions(string applicationId, string baseAddress) : base(baseAddress)
         {
             ApplicationId = applicationId;
         }
 
-        public WootradeSocketClientOptions(string applicationId) : base("wss://wss.staging.woo.network/ws/stream/{application_id}")
+        public WootradeSocketClientOptions(string applicationId) : base("wss://wss.staging.woo.network/ws/stream/" + applicationId)
         {
             ApplicationId = applicationId;
         }
