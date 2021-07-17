@@ -1,17 +1,36 @@
 ﻿using System;
 using System.Threading.Tasks;
 using CryptoExchange.Net;
-using CryptoExchange.Net.Authentication;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Sockets;
 using Newtonsoft.Json.Linq;
+using Wootrade.Interfaces;
+using Wootrade.Model.Spot;
+using Wootrade.SocketSubClients;
+using Wootrade.SocketSubClients.Interfaces;
 
 namespace Wootrade
 {
-    public class WootradeSocketClient : SocketClient
+    public class WootradeSocketClient : SocketClient, IWootradeSocketClient
     {
-        public WootradeSocketClient(string clientName, SocketClientOptions exchangeOptions, AuthenticationProvider authenticationProvider) : base(clientName, exchangeOptions, authenticationProvider)
+        private static WootradeSocketClientOptions defaultOptions = new WootradeSocketClientOptions(string.Empty);
+
+        public WootradeSocketClient() : this(defaultOptions)
+        { }
+
+        public WootradeSocketClient(WootradeSocketClientOptions exchangeOptions) : base("Wootrade", exchangeOptions, exchangeOptions.ApiCredentials == null ? null : new WootradeAuthenticationProvider(exchangeOptions.ApiCredentials))
         {
+            this.Spot = new WootradeSocketClientSpot(this, exchangeOptions);
+        }
+
+        /// <summary>
+        /// Spot streams
+        /// </summary>
+        public IWootradeSocketClientSpot Spot { get; set; }
+
+        internal Task<CallResult<UpdateSubscription>> SubscribeInternal<T>(string url, object request, Action<T> onData)
+        {
+            return Subscribe(url, request, url + NextId(), false, onData);
         }
 
         protected override Task<CallResult<bool>> AuthenticateSocket(SocketConnection s)
@@ -31,17 +50,17 @@ namespace Wootrade
 
         protected override bool MessageMatchesHandler(JToken message, object request)
         {
-            throw new NotImplementedException();
+            return true;
         }
 
         protected override bool MessageMatchesHandler(JToken message, string identifier)
         {
-            throw new NotImplementedException();
+            return true;
         }
 
         protected override Task<bool> Unsubscribe(SocketConnection connection, SocketSubscription s)
         {
-            throw new NotImplementedException();
+            return Task.FromResult(true);
         }
     }
 }
