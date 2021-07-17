@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 namespace Wootrade.Model
 {
     /// <summary>
-    /// A event received by a Binance websocket
+    /// A event received by a Wootrade websocket
     /// </summary>
 
     public class WootradeStreamEvent
