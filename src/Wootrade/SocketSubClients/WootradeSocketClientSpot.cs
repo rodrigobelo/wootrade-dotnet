@@ -4,6 +4,7 @@ using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Sockets;
 using Dawn;
 using Wootrade.Interfaces;
+using Wootrade.Model;
 using Wootrade.Model.Enums;
 using Wootrade.Model.MarketStream;
 using Wootrade.Model.Spot;
@@ -13,7 +14,6 @@ namespace Wootrade.SocketSubClients
 {
     internal class WootradeSocketClientSpot : IWootradeSocketClientSpot
     {
-        private readonly string applicationId;
         private readonly string baseAddress;
         private readonly WootradeSocketClient baseClient;
 
@@ -21,7 +21,6 @@ namespace Wootrade.SocketSubClients
         {
             this.baseClient = baseClient;
             this.baseAddress = exchangeOptions.BaseAddress;
-            this.applicationId = exchangeOptions.ApplicationId;
         }
 
         public async Task<CallResult<UpdateSubscription>> SubscribeToKlineUpdatesAsync(string symbol,
@@ -29,18 +28,24 @@ namespace Wootrade.SocketSubClients
         {
             Guard.Argument(symbol).NotNull();
 
-            var handler = new Action<WootradeStreamKlineData>(data => onMessage(data));
+            string topic = $"{symbol}@kline_{KlineIntervalAdapter.AdaptToString(interval)}";
 
-            var request = new WootradeStreamSubscriptionRequest("subscribe", $"{symbol}@kline_15m");
+            var handler = new Action<WootradeStreamKlineData>(
+                data =>
+                {
+                    if (!string.IsNullOrEmpty(data.Topic) && data.Topic.Equals(topic))
+                        onMessage(data);
+                }
+            );
+
+            var request = new WootradeStreamSubscriptionRequest("clientID6", "subscribe", topic);
 
             return await Subscribe(request, handler).ConfigureAwait(false);
         }
 
         private async Task<CallResult<UpdateSubscription>> Subscribe<T>(object request, Action<T> onData)
         {
-            var url = baseAddress + "stream/" + this.applicationId;
-
-            return await baseClient.SubscribeInternal(url, request, onData).ConfigureAwait(false);
+            return await baseClient.SubscribeInternal(baseAddress, request, onData).ConfigureAwait(false);
         }
     }
 }
