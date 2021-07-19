@@ -16,6 +16,12 @@ jobs:
       with:
         dotnet-version: 3.1.x
       
+    - name: Restore dependencies
+      run: dotnet restore src/Wootrade.sln
+      
+    - name: Build
+      run: dotnet build --no-restore -c Release src/Wootrade.sln
+      
     - name: Pack Wootrade
       run: dotnet pack src/Wootrade/Wootrade.csproj -c Release --include-symbols /p:Version=${{ github.event.release.tag_name }}
           
