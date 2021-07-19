@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31321.278
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wootrade", "Wootrade.csproj", "{1D3C6337-98A9-4732-ADBB-8E43056AE5FD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wootrade", "Wootrade\Wootrade.csproj", "{1D3C6337-98A9-4732-ADBB-8E43056AE5FD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wootrade.Tests", "..\Wootrade.Tests\Wootrade.Tests.csproj", "{6DF322A7-E670-4B62-A383-DA8E34555669}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wootrade.Tests", "Wootrade.Tests\Wootrade.Tests.csproj", "{6DF322A7-E670-4B62-A383-DA8E34555669}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wootrade.Net.Samples", "..\Wootrade.Net.Samples\Wootrade.Net.Samples.csproj", "{38F06568-93BA-4ADD-A42C-F6453CF94755}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wootrade.Net.Samples", "Wootrade.Net.Samples\Wootrade.Net.Samples.csproj", "{38F06568-93BA-4ADD-A42C-F6453CF94755}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
