@@ -4,6 +4,7 @@
     <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
     <LangVersion>8.0</LangVersion>
     <Nullable>enable</Nullable>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -22,5 +23,8 @@
   <ItemGroup>
     <PackageReference Include="CryptoExchange.Net" Version="3.9.0" />
     <PackageReference Include="Dawn.Guard" Version="1.12.0" />
+     <None Include="..\..\LICENSE" Pack="true" Link="LICENSE" PackagePath=".">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>
