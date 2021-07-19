@@ -3,8 +3,10 @@ using System.Threading.Tasks;
 using CryptoExchange.Net;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Sockets;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Wootrade.Interfaces;
+using Wootrade.Model;
 using Wootrade.Model.Spot;
 using Wootrade.SocketSubClients;
 using Wootrade.SocketSubClients.Interfaces;
@@ -13,6 +15,7 @@ namespace Wootrade
 {
     public class WootradeSocketClient : SocketClient, IWootradeSocketClient
     {
+        private const int PongIntervalSeconds = 5;
         private static WootradeSocketClientOptions defaultOptions = new WootradeSocketClientOptions(string.Empty);
 
         public WootradeSocketClient() : this(defaultOptions)
@@ -30,11 +33,15 @@ namespace Wootrade
 
         internal Task<CallResult<UpdateSubscription>> SubscribeInternal<T>(string url, object request, Action<T> onData)
         {
-            return Subscribe(url, request, url + NextId(), false, onData);
+            this.SendPeriodic(TimeSpan.FromSeconds(PongIntervalSeconds), (conn) => new WootradePingPongStreamEvent() { Event = "pong", Timestamp = DateTime.UtcNow });
+
+            return Subscribe(url, request, url, false, onData);
         }
 
         protected override Task<CallResult<bool>> AuthenticateSocket(SocketConnection s)
         {
+            return Task<CallResult<bool>>.FromResult(new CallResult<bool>(false, null));
+
             throw new NotImplementedException();
         }
 
@@ -45,7 +52,17 @@ namespace Wootrade
 
         protected override bool HandleSubscriptionResponse(SocketConnection s, SocketSubscription subscription, object request, JToken message, out CallResult<object> callResult)
         {
-            throw new NotImplementedException();
+            var response = JsonConvert.DeserializeObject<WootradeSubscriptionResponseStreamEvent>(message.ToString());
+
+            if (response is object)
+            {
+                callResult = new CallResult<object>(response, null);
+                return true;
+            }
+
+            callResult = new CallResult<object>(response, null);
+
+            return false;
         }
 
         protected override bool MessageMatchesHandler(JToken message, object request)

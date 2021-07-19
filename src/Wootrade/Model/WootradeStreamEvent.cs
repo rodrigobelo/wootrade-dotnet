@@ -5,8 +5,17 @@ using Newtonsoft.Json;
 namespace Wootrade.Model
 {
     /// <summary>
-    /// A event received by a Wootrade websocket
+    /// A event received by a Wootrade websocket { "event": "ping", "ts": 1626712040001}
     /// </summary>
+
+    public class WootradePingPongStreamEvent : WootradeStreamEvent
+    {
+        /// <summary>
+        /// The event
+        /// </summary>
+        [JsonProperty("event")]
+        public string Event { get; set; } = "";
+    }
 
     public class WootradeStreamEvent
     {
@@ -15,11 +24,20 @@ namespace Wootrade.Model
         /// </summary>
         [JsonProperty("ts"), JsonConverter(typeof(TimestampConverter))]
         public DateTime Timestamp { get; set; }
+    }
 
+    public class WootradeSubscriptionResponseStreamEvent : WootradeStreamEvent
+    {
         /// <summary>
-        /// The symbol the data is for
+        /// The event
         /// </summary>
-        [JsonProperty("topic")]
-        public string Topic { get; set; } = "";
+        [JsonProperty("event")]
+        public string Event { get; set; } = "";
+
+        [JsonProperty("id")]
+        public string Id { get; set; } = "";
+
+        [JsonProperty("success")]
+        public bool Success { get; set; } = false;
     }
 }

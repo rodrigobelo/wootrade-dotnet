@@ -12,7 +12,14 @@ namespace Wootrade.Converters
 
         public override object? ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
         {
-            return serializer.Deserialize<TImp>(reader);
+            try
+            {
+                return serializer.Deserialize<TImp>(reader);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
 
         public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)

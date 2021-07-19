@@ -2,19 +2,11 @@
 
 namespace Wootrade.Model.MarketStream
 {
-    /*
-     * {
-"id": "clientID6",
-"topic": "SPOT_BTC_USDT@kline_1m",
-"event": "subscribe"
-}
-     * */
-
     public class WootradeStreamSubscriptionRequest
     {
-        public WootradeStreamSubscriptionRequest(string eventStr, string subscriptionTopic)
+        public WootradeStreamSubscriptionRequest(string id, string eventStr, string subscriptionTopic)
         {
-            this.Id = string.Empty;
+            this.Id = id;
             this.Event = eventStr;
             this.SubscriptionTopic = subscriptionTopic;
         }

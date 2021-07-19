@@ -11,6 +11,9 @@ namespace Wootrade.Model.MarketStream
         /// </summary>
         [JsonProperty("data")]
         [JsonConverter(typeof(InterfaceConverter<WootradeStreamKline>))]
-        public IWootradeStreamKline Data { get; set; } = default!;
+        public IWootradeStreamKline? Data { get; set; } = default!;
+
+        [JsonProperty("topic")]
+        public string Topic { get; set; } = "";
     }
 }
