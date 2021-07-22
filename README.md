@@ -27,7 +27,7 @@ pm> Install-Package Wootrade.Net
 
 The Wootrade API provides several RESTful methods. Some of them are public, some requires authentication.
 
-## Public methods
+### Public methods
 ````csharp
 IWootradeRestClient client = new WootradeRestClient(new WootradeClientOptions());
 
