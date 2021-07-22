@@ -34,7 +34,7 @@ namespace Wootrade
             if (!signed)
                 return new Dictionary<string, string>();
 
-            string timestamp = DateTime.UtcNow.Ticks.ToString();
+            string timestamp = DateTime.UtcNow.Millisecond.ToString(); // TODO: total milliseconds
             string signData = getDataToBeSigned(method, parameters, postParameterPosition, arraySerialization, timestamp);
 
             return new Dictionary<string, string>
