@@ -23,6 +23,17 @@ Use your VS Package Manager Console to run the following command:
 pm> Install-Package Wootrade.Net
 ```
 
+## Wootrade RESTful Methods
+
+The Wootrade API provides several RESTful methods. Some of them are public, some requires authentication.
+
+## Public methods
+````csharp
+IWootradeRestClient client = new WootradeRestClient(new WootradeClientOptions());
+
+var symbols = await client.GetSymbolsAsync();
+````
+
 
 ## WebSockets Streams
 
