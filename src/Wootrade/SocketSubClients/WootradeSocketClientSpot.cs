@@ -7,7 +7,7 @@ using Wootrade.Interfaces;
 using Wootrade.Model;
 using Wootrade.Model.Enums;
 using Wootrade.Model.MarketStream;
-using Wootrade.Model.Spot;
+using Wootrade.Model.Shared;
 using Wootrade.SocketSubClients.Interfaces;
 
 namespace Wootrade.SocketSubClients

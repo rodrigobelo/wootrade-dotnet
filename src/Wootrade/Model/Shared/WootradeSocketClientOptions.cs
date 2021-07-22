@@ -1,6 +1,6 @@
 ﻿using CryptoExchange.Net.Objects;
 
-namespace Wootrade.Model.Spot
+namespace Wootrade.Model.Shared
 {
     public class WootradeSocketClientOptions : SocketClientOptions
     {

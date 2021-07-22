@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Wootrade.Interfaces;
 using Wootrade.Model;
-using Wootrade.Model.Spot;
+using Wootrade.Model.Shared;
 using Wootrade.SocketSubClients;
 using Wootrade.SocketSubClients.Interfaces;
 
@@ -41,8 +41,6 @@ namespace Wootrade
         protected override Task<CallResult<bool>> AuthenticateSocket(SocketConnection s)
         {
             return Task<CallResult<bool>>.FromResult(new CallResult<bool>(false, null));
-
-            throw new NotImplementedException();
         }
 
         protected override bool HandleQueryResponse<T>(SocketConnection s, object request, JToken data, out CallResult<T> callResult)

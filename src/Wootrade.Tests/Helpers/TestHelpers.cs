@@ -5,7 +5,7 @@ using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Logging;
 using Moq;
 using Wootrade.Interfaces;
-using Wootrade.Model.Spot;
+using Wootrade.Model.Shared;
 
 namespace Wootrade.Tests.Helpers
 {

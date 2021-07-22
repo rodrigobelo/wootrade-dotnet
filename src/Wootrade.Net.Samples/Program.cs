@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Wootrade.Interfaces;
 using Wootrade.Model.Enums;
+using Wootrade.Model.Shared;
 using Wootrade.Model.Spot;
 
 namespace Wootrade.Net.Samples
@@ -9,6 +10,34 @@ namespace Wootrade.Net.Samples
     internal class Program
     {
         private static async Task Main(string[] args)
+        {
+            await RunGetSymbols();
+
+            await RunKlineUpdates();
+
+            Console.ReadLine();
+        }
+
+        private static async Task RunGetSymbols()
+        {
+            WootradeClientOptions clientOptions = new WootradeClientOptions();
+
+            clientOptions.LogVerbosity = CryptoExchange.Net.Logging.LogVerbosity.Debug;
+
+            IWootradeRestClient client = new WootradeRestClient(clientOptions);
+
+            var result = await client.GetSymbolsAsync();
+
+            foreach (var item in result.Data)
+            {
+                Console.WriteLine("Symbol:" + item.CommonName);
+                Console.WriteLine("MinimumTradeSize:" + item.CommonMinimumTradeSize);
+            }
+
+            Console.WriteLine("------------");
+        }
+
+        private static async Task RunKlineUpdates()
         {
             WootradeSocketClientOptions clientOptions = new WootradeSocketClientOptions("applicationId");
 
@@ -32,8 +61,6 @@ namespace Wootrade.Net.Samples
                 Console.WriteLine("-------------------");
             }
         );
-
-            Console.ReadLine();
         }
     }
 }
