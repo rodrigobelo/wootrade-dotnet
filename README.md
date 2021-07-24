@@ -4,8 +4,8 @@ A .NET Standard 2.0/2.1 Client for Wootrade API.
 ## Features
 This package is under construction, the following features are available:
 - WebSockets Streams for Spot Market
-- RESTful API GetSymbols method
-- More to come
+- All RESTful API methods available
+- More coming
 
 If you find any issue or have questions, please please open an issue.
 
@@ -35,7 +35,7 @@ The Wootrade API provides several RESTful methods. Some of them are public, some
 
 ### Public methods
 ````csharp
-IWootradeRestClient client = new WootradeRestClient(new WootradeClientOptions());
+IWootradeRestClient client = new WootradeRestClient();
 
 var symbols = await client.GetSymbolsAsync();
 ````
