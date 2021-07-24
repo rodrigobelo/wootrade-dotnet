@@ -8,7 +8,7 @@ namespace Wootrade.Model.Spot
         {
         }
 
-        public WootradeClientOptions() : base("https://api.woo.network/")
+        public WootradeClientOptions() : base("https://api.staging.woo.network/")
         {
         }
     }

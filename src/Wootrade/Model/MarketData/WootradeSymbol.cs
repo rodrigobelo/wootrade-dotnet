@@ -14,5 +14,8 @@ namespace Wootrade.Model.MarketData
 
         [JsonProperty("symbol")]
         public string Name { get; set; } = "";
+
+        [JsonProperty("price_range")]
+        public decimal PriceRange { get; set; }
     }
 }
