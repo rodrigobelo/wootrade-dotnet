@@ -34,11 +34,21 @@ pm> Install-Package Wootrade.Net
 
 The Wootrade API provides several RESTful methods. Some of them are public, some requires authentication.
 
-### Public methods
+### Public endpoints
 ````csharp
 IWootradeRestClient client = new WootradeRestClient();
 
 var symbols = await client.GetSymbolsAsync();
+````
+
+### Authenticated endpoints
+````csharp
+WootradeClientOptions clientOptions = new WootradeClientOptions();
+clientOptions.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials(apiKey, apiSecret);
+
+IWootradeRestClient client = new WootradeRestClient(clientOptions);
+
+var orderbook = await client.GetOrderBookAsync("SPOT_ETH_USDT");
 ````
 
 
