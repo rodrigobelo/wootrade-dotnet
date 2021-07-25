@@ -34,8 +34,10 @@ namespace Wootrade
             if (!signed)
                 return new Dictionary<string, string>();
 
-            string timestamp = DateTime.UtcNow.Millisecond.ToString(); // TODO: total milliseconds
-            string signData = getDataToBeSigned(method, parameters, postParameterPosition, arraySerialization, timestamp);
+            string timestamp =
+                DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds.ToString("#");
+
+            string signData = GetDataToBeSigned(method, parameters, postParameterPosition, arraySerialization, timestamp);
 
             return new Dictionary<string, string>
             {
@@ -53,6 +55,8 @@ namespace Wootrade
 
         public override Dictionary<string, object> AddAuthenticationToParameters(string uri, HttpMethod method, Dictionary<string, object> parameters, bool signed, PostParameters postParameterPosition, ArrayParametersSerialization arraySerialization)
         {
+            return new Dictionary<string, object>();
+
             throw new NotImplementedException();
         }
 
@@ -61,7 +65,7 @@ namespace Wootrade
             throw new NotImplementedException();
         }
 
-        private static string getDataToBeSigned(HttpMethod method, Dictionary<string, object> parameters, PostParameters postParameterPosition, ArrayParametersSerialization arraySerialization, string timestamp)
+        private static string GetDataToBeSigned(HttpMethod method, Dictionary<string, object> parameters, PostParameters postParameterPosition, ArrayParametersSerialization arraySerialization, string timestamp)
         {
             string signData;
 

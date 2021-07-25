@@ -4,7 +4,6 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using CryptoExchange.Net;
-using CryptoExchange.Net.ExchangeInterfaces;
 using CryptoExchange.Net.Objects;
 using Wootrade.Interfaces;
 using Wootrade.Model.MarketData;
@@ -30,6 +29,17 @@ namespace Wootrade
             var exchangeInfoResult = await this.SendRequestInternal<WootradeAvailableTokens>(this.GetUri("token", true), HttpMethod.Get, CancellationToken.None);
 
             return new WebCallResult<WootradeAvailableTokens>(exchangeInfoResult.ResponseStatusCode,
+                exchangeInfoResult.ResponseHeaders, exchangeInfoResult.Data, exchangeInfoResult.Error);
+        }
+
+        public async Task<WebCallResult<WootradeOrderBook>> GetOrderBookAsync(string symbol)
+        {
+            var exchangeInfoResult = await this.SendRequestInternal<WootradeOrderBook>(this.GetUri("orderbook", false, symbol), HttpMethod.Get, CancellationToken.None, null, true);
+
+            if (exchangeInfoResult.Data is object)
+                exchangeInfoResult.Data.Symbol = symbol;
+
+            return new WebCallResult<WootradeOrderBook>(exchangeInfoResult.ResponseStatusCode,
                 exchangeInfoResult.ResponseHeaders, exchangeInfoResult.Data, exchangeInfoResult.Error);
         }
 

@@ -8,6 +8,9 @@ namespace Wootrade.Model.Spot
         {
         }
 
+        /// <summary>
+        /// Default base address is staging endpoint address
+        /// </summary>
         public WootradeClientOptions() : base("https://api.staging.woo.network/")
         {
         }
