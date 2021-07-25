@@ -55,9 +55,7 @@ namespace Wootrade
 
         public override Dictionary<string, object> AddAuthenticationToParameters(string uri, HttpMethod method, Dictionary<string, object> parameters, bool signed, PostParameters postParameterPosition, ArrayParametersSerialization arraySerialization)
         {
-            return new Dictionary<string, object>();
-
-            throw new NotImplementedException();
+            return parameters;
         }
 
         public override string Sign(string toSign)
