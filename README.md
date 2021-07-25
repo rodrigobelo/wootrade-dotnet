@@ -4,7 +4,8 @@ A .NET Standard 2.0/2.1 Client for Wootrade API.
 ## Features
 This package is under construction, the following features are available:
 - WebSockets Streams for Spot Market
-- All RESTful API methods available
+- All public RESTful API endpoints available
+- Authenticated OrderBook Snapshot endpoint available
 - More coming
 
 If you find any issue or have questions, please please open an issue.
