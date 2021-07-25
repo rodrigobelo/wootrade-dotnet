@@ -25,6 +25,7 @@ namespace Wootrade.Tests.Integrated
             this.client = new WootradeRestClient(clientOptions);
         }
 
+        [Fact]
         public async Task WootradeRestClient_GetOrderBookAsync_Success()
         {
             var result = await client.GetOrderBookAsync("SPOT_ETH_USDT");
