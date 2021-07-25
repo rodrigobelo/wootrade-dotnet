@@ -6,12 +6,12 @@ using Xunit;
 
 namespace Wootrade.Tests.Integrated
 {
-    public class WootradePublicMethods
+    public class WootradePublicMethodsSuite
     {
         private const string WootradeStagingEndpoint = "https://api.staging.woo.network/";
         private IWootradeRestClient client;
 
-        public WootradePublicMethods()
+        public WootradePublicMethodsSuite()
         {
             WootradeClientOptions clientOptions = new WootradeClientOptions(WootradeStagingEndpoint);
             this.client = new WootradeRestClient(clientOptions);
