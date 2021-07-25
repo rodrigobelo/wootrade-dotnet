@@ -10,7 +10,11 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-
+    
+    env:
+      WOO_TESTS_API_KEY: ${{ secrets.WOO_TESTS_API_KEY }}
+      WOO_TESTS_API_SECRET: ${{ secrets.WOO_TESTS_API_SECRET }}
+      
     steps:
     - uses: actions/checkout@v2
     - name: Setup .NET
