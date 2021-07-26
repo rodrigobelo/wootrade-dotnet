@@ -81,7 +81,7 @@ namespace Wootrade.Tests.Integrated
             Assert.True(result.Data.Bids.Any());
         }
 
-        [Fact]
+        [Fact(Skip = "Skipped")]
         public async Task WootradeRestClient_GetOrderByClientOrderIdAsync_Success()
         {
             var result = await client.GetOrderByClientOrderIdAsync(1);
