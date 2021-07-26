@@ -4,13 +4,10 @@ namespace Wootrade.Model.SpotData
 {
     public class WootradeCancelOrderResponse
     {
-        /// <summary>
-        /// The client_order_id that wish to cancel
-        /// </summary>
-        [JsonProperty("client_order_id")]
-        public int ClientOrderId { get; set; }
+        [JsonProperty("status")]
+        public string Status { get; set; }
 
-        [JsonProperty("symbol")]
-        public string Symbol { get; set; }
+        [JsonProperty("success")]
+        public bool Success { get; set; }
     }
 }

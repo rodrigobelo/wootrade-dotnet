@@ -30,7 +30,7 @@ namespace Wootrade
             this.requestBodyFormat = RequestBodyFormat.FormData;
         }
 
-        public async Task<WebCallResult<WootradeCancelOrderResponse>> CancelOrderAsync(string symbol, int clientOrderId)
+        public async Task<WebCallResult<WootradeCancelOrderResponse>> CancelOrderByClientIdAsync(string symbol, int clientOrderId)
         {
             var parameters = new Dictionary<string, object>
             {
@@ -38,7 +38,32 @@ namespace Wootrade
                 { "client_order_id", clientOrderId.ToString() }
             };
 
-            var result = await SendRequest<WootradeCancelOrderResponse>(this.GetUri("client", false), HttpMethod.Delete, CancellationToken.None, parameters, true).ConfigureAwait(false);
+            var result = await SendRequest<WootradeCancelOrderResponse>(this.GetUri("client/order", false), HttpMethod.Delete, CancellationToken.None, parameters, true).ConfigureAwait(false);
+
+            return result;
+        }
+
+        public async Task<WebCallResult<WootradeCancelOrderResponse>> CancelOrderByWootradeOrderIdAsync(string symbol, int wootradeOrderId)
+        {
+            var parameters = new Dictionary<string, object>
+            {
+                { "symbol", symbol },
+                { "order_id", wootradeOrderId.ToString() }
+            };
+
+            var result = await SendRequest<WootradeCancelOrderResponse>(this.GetUri("order", false), HttpMethod.Delete, CancellationToken.None, parameters, true).ConfigureAwait(false);
+
+            return result;
+        }
+
+        public async Task<WebCallResult<WootradeCancelOrderResponse>> CancelOrdersBySymbolAsync(string symbol)
+        {
+            var parameters = new Dictionary<string, object>
+            {
+                { "symbol", symbol }
+            };
+
+            var result = await SendRequest<WootradeCancelOrderResponse>(this.GetUri("orders", false), HttpMethod.Delete, CancellationToken.None, parameters, true).ConfigureAwait(false);
 
             return result;
         }
@@ -63,14 +88,6 @@ namespace Wootrade
             return result;
         }
 
-        public async Task<WebCallResult<WootradeOrderInfo>> GetOrderAsync(int clientOrderId)
-        {
-            var result = await this.SendRequestInternal<WootradeOrderInfo>(this.GetUri("client/order", false, clientOrderId.ToString()), HttpMethod.Get, CancellationToken.None, null, true);
-
-            return new WebCallResult<WootradeOrderInfo>(result.ResponseStatusCode,
-                result.ResponseHeaders, result.Data, result.Error);
-        }
-
         public async Task<WebCallResult<WootradeOrderBook>> GetOrderBookAsync(string symbol)
         {
             var result = await this.SendRequestInternal<WootradeOrderBook>(this.GetUri("orderbook", false, symbol), HttpMethod.Get, CancellationToken.None, null, true);
@@ -79,6 +96,22 @@ namespace Wootrade
                 result.Data.Symbol = symbol;
 
             return new WebCallResult<WootradeOrderBook>(result.ResponseStatusCode,
+                result.ResponseHeaders, result.Data, result.Error);
+        }
+
+        public async Task<WebCallResult<WootradeOrderInfo>> GetOrderByClientOrderIdAsync(int clientOrderId)
+        {
+            var result = await this.SendRequestInternal<WootradeOrderInfo>(this.GetUri("client/order", false, clientOrderId.ToString()), HttpMethod.Get, CancellationToken.None, null, true);
+
+            return new WebCallResult<WootradeOrderInfo>(result.ResponseStatusCode,
+                result.ResponseHeaders, result.Data, result.Error);
+        }
+
+        public async Task<WebCallResult<WootradeOrderInfo>> GetOrderByWootradeOrderIdAsync(int orderId)
+        {
+            var result = await this.SendRequestInternal<WootradeOrderInfo>(this.GetUri("order", false, orderId.ToString()), HttpMethod.Get, CancellationToken.None, null, true);
+
+            return new WebCallResult<WootradeOrderInfo>(result.ResponseStatusCode,
                 result.ResponseHeaders, result.Data, result.Error);
         }
 

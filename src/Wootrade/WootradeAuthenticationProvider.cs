@@ -67,7 +67,7 @@ namespace Wootrade
         {
             string signData;
 
-            if (method == HttpMethod.Get || method == HttpMethod.Delete || (postParameterPosition == PostParameters.InUri))
+            if (method == HttpMethod.Get || (postParameterPosition == PostParameters.InUri))
             {
                 signData = parameters.CreateParamString(true, arraySerialization);
             }

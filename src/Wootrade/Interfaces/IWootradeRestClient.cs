@@ -14,7 +14,22 @@ namespace Wootrade.Interfaces
         /// <param name="symbol"></param>
         /// <param name="clientOrderId">The client_order_id that wish to cancel</param>
         /// <returns></returns>
-        Task<WebCallResult<WootradeCancelOrderResponse>> CancelOrderAsync(string symbol, int clientOrderId);
+        Task<WebCallResult<WootradeCancelOrderResponse>> CancelOrderByClientIdAsync(string symbol, int clientOrderId);
+
+        /// <summary>
+        /// Cancel order by wootrade order id
+        /// </summary>
+        /// <param name="symbol"></param>
+        /// <param name="wootradeOrderId">Order id created by Wootrade API</param>
+        /// <returns></returns>
+        Task<WebCallResult<WootradeCancelOrderResponse>> CancelOrderByWootradeOrderIdAsync(string symbol, int wootradeOrderId);
+
+        /// <summary>
+        /// Cancel all orders for a symbol
+        /// </summary>
+        /// <param name="symbol"></param>
+        /// <returns></returns>
+        Task<WebCallResult<WootradeCancelOrderResponse>> CancelOrdersBySymbolAsync(string symbol);
 
         /// <summary>
         /// Get available tokens that WooTrade supported, it need to use when you call get deposit
@@ -30,18 +45,25 @@ namespace Wootrade.Interfaces
         Task<WebCallResult<WootradeCurrentHolding>> GetCurrentHoldingAsync(bool all = false);
 
         /// <summary>
-        /// Get specific order detail by client_order_id
-        /// </summary>
-        /// <param name="clientOrderId">customized order_id when placing order</param>
-        /// <returns></returns>
-        Task<WebCallResult<WootradeOrderInfo>> GetOrderAsync(int clientOrderId);
-
-        /// <summary>
         /// SNAPSHOT of current orderbook. Price of asks/bids are in descending order
         /// </summary>
         /// <param name="symbol">Symbol that you want to query</param>
         /// <returns></returns>
         Task<WebCallResult<WootradeOrderBook>> GetOrderBookAsync(string symbol);
+
+        /// <summary>
+        /// Get specific order detail by client_order_id
+        /// </summary>
+        /// <param name="clientOrderId">customized order_id when placing order</param>
+        /// <returns></returns>
+        Task<WebCallResult<WootradeOrderInfo>> GetOrderByClientOrderIdAsync(int clientOrderId);
+
+        /// <summary>
+        /// Get order by Wootrade order id
+        /// </summary>
+        /// <param name="orderId"></param>
+        /// <returns></returns>
+        Task<WebCallResult<WootradeOrderInfo>> GetOrderByWootradeOrderIdAsync(int orderId);
 
         /// <summary>
         /// Get latest market trades

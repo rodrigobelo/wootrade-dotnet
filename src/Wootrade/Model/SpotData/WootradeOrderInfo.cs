@@ -10,22 +10,26 @@ namespace Wootrade.Model.SpotData
     public class WootradeOrderInfo
     {
         [JsonProperty("amount")]
-        public decimal Amount { get; set; }
+        public decimal? Amount { get; set; }
 
         [JsonProperty("client_order_id")]
-        public int ClientOrderId { get; set; }
+        public int? ClientOrderId { get; set; }
 
         [JsonProperty("created_time"), JsonConverter(typeof(TimestampSecondsConverter))]
         public DateTime CreatedTime { get; set; }
 
         [JsonProperty("executed")]
-        public decimal Executed { get; set; }
+        public bool Executed { get; set; }
 
         [JsonProperty("price")]
         public decimal Price { get; set; }
 
+
+        [JsonProperty("average_executed_price")]
+        public decimal? AverageExecutedPrice { get; set; }
+
         [JsonProperty("quantity")]
-        public decimal Quantity { get; set; }
+        public decimal? Quantity { get; set; }
 
         [JsonProperty("side"), JsonConverter(typeof(OrderSideConverter))]
         public OrderSide Side { get; set; }
