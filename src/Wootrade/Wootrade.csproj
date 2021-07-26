@@ -11,7 +11,7 @@
     <PackageId>Wootrade.Net</PackageId>
     <Authors>rodrigobelo</Authors>
 
-    <Description>Wootrade.Net is a .Net wrapper for the Wootrade API (beta)</Description>
+    <Description>Wootrade.Net is a .Net wrapper for the Wootrade API (alpha)</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageTags>Wootrade Wootrade.Net C# .Net CryptoCurrency Exchange API wrapper</PackageTags>
     <RepositoryType>git</RepositoryType>
