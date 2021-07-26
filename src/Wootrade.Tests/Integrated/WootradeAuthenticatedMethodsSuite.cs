@@ -22,6 +22,9 @@ namespace Wootrade.Tests.Integrated
             var apiKey = System.Environment.GetEnvironmentVariable("WOO_TESTS_API_KEY");
             var apiSecret = System.Environment.GetEnvironmentVariable("WOO_TESTS_API_SECRET");
 
+            clientOptions.ApiCredentials
+                = new CryptoExchange.Net.Authentication.ApiCredentials(apiKey, apiSecret);
+
             this.client = new WootradeRestClient(clientOptions);
         }
 
