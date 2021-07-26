@@ -64,7 +64,7 @@ namespace Wootrade.Model.Shared
         public DateTime StartTime { get; set; }
 
         [JsonProperty("symbol")]
-        public string Symbol { get; set; }
+        public string Symbol { get; set; } = "";
 
         /// <summary>
         /// The type

@@ -21,7 +21,7 @@ namespace Wootrade.Model.SpotData
         public decimal Fee { get; set; }
 
         [JsonProperty("fee_asset")]
-        public string FeeAsset { get; set; }
+        public string FeeAsset { get; set; } = "";
 
         [JsonProperty("id")]
         public int Id { get; set; }
@@ -33,7 +33,7 @@ namespace Wootrade.Model.SpotData
         public OrderSide Side { get; set; }
 
         [JsonProperty("symbol")]
-        public string Symbol { get; set; }
+        public string Symbol { get; set; } = "";
 
         [JsonProperty("order_id")]
         public int WootradeOrderId { get; set; }

@@ -10,7 +10,7 @@ namespace Wootrade.Model.SpotData
         public decimal Holding { get; set; }
 
         [JsonProperty("token")]
-        public string Token { get; set; }
+        public string Token { get; set; } = "";
 
         [JsonProperty("updated_time"), JsonConverter(typeof(TimestampSecondsConverter))]
         public DateTime UpdatedTime { get; set; }

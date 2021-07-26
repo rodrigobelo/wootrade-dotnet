@@ -59,7 +59,7 @@ namespace Wootrade.Model.SpotData
         public OrderSide Side { get; set; }
 
         [JsonProperty("symbol")]
-        public string Symbol { get; set; }
+        public string Symbol { get; set; } = "";
 
         /// <summary>
         /// An optional tag for this order. (default: default)
@@ -123,6 +123,8 @@ namespace Wootrade.Model.SpotData
                 {
                     throw new ArgumentException("Order value should be greater or equal to 5.0");
                 }
+
+                Guard.Argument(this.Quantity).NotNegative();
             }
         }
     }

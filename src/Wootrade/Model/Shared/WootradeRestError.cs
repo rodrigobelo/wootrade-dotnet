@@ -8,7 +8,7 @@ namespace Wootrade.Model.Shared
         public int Code { get; set; }
 
         [JsonProperty("message")]
-        public string Message { get; set; }
+        public string Message { get; set; } = "";
 
         public string GetErrorName()
         {

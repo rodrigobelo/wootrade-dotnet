@@ -12,6 +12,9 @@ namespace Wootrade.Model.SpotData
         [JsonProperty("amount")]
         public decimal? Amount { get; set; }
 
+        [JsonProperty("average_executed_price")]
+        public decimal? AverageExecutedPrice { get; set; }
+
         [JsonProperty("client_order_id")]
         public int? ClientOrderId { get; set; }
 
@@ -23,10 +26,6 @@ namespace Wootrade.Model.SpotData
 
         [JsonProperty("price")]
         public decimal Price { get; set; }
-
-
-        [JsonProperty("average_executed_price")]
-        public decimal? AverageExecutedPrice { get; set; }
 
         [JsonProperty("quantity")]
         public decimal? Quantity { get; set; }
@@ -41,10 +40,10 @@ namespace Wootrade.Model.SpotData
         public bool Success { get; set; }
 
         [JsonProperty("symbol")]
-        public string Symbol { get; set; }
+        public string Symbol { get; set; } = "";
 
         [JsonProperty("order_tag")]
-        public string Tag { get; set; }
+        public string Tag { get; set; } = "";
 
         [JsonProperty("transactions")]
         public IEnumerable<WootradeOrderInfoTransaction> Transactions { get; set; } = new List<WootradeOrderInfoTransaction>();
