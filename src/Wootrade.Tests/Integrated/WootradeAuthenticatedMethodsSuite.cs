@@ -55,7 +55,6 @@ namespace Wootrade.Tests.Integrated
         }
 
         [Fact]
-
         public async Task WootradeRestClient_GetCurrentHoldingsAsync_Success()
         {
             var result = await client.GetCurrentHoldingAsync(false);
@@ -99,7 +98,7 @@ namespace Wootrade.Tests.Integrated
             Assert.Equal("Test", result.Data.Tag);
         }
 
-        [Fact]
+        [Fact(Skip = "Skipped")]
         public async Task WootradeRestClient_GetOrderByWootradeOrderIdAsync_Success()
         {
             var result = await client.GetOrderByWootradeOrderIdAsync(TestOrderId);
