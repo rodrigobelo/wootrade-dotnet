@@ -42,6 +42,19 @@ namespace Wootrade.Tests.Integrated
         }
 
         [Fact]
+        public async Task WootradeRestClient_CancelOrderByWootradeOrderIdAsync_Success()
+        {
+            var symbol = "SPOT_WOO_USDT";
+            var result = await client.CancelOrderByWootradeOrderIdAsync(symbol, 33618629);
+
+            Assert.NotNull(result);
+            Assert.True(result.Success);
+            Assert.True(result.Data.Success);
+            Assert.NotNull(result.Data);
+            Assert.Equal("CANCEL_SENT", result.Data.Status);
+        }
+
+        [Fact]
         public async Task WootradeRestClient_GetCurrentHoldingsAsync_Success()
         {
             var result = await client.GetCurrentHoldingAsync(false);

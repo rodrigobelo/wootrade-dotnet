@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using CryptoExchange.Net;
+using CryptoExchange.Net.Interfaces;
 using CryptoExchange.Net.Objects;
 using Newtonsoft.Json;
 using Wootrade.Converters;
@@ -51,7 +53,7 @@ namespace Wootrade
                 { "order_id", wootradeOrderId.ToString() }
             };
 
-            var result = await SendRequest<WootradeCancelOrderResponse>(this.GetUri("order", false), HttpMethod.Delete, CancellationToken.None, parameters, true).ConfigureAwait(false);
+            var result = await SendRequest<WootradeCancelOrderResponse>(this.GetUri("order", false), HttpMethod.Delete, CancellationToken.None, parameters, true, true, PostParameters.InBody).ConfigureAwait(false);
 
             return result;
         }
@@ -192,7 +194,16 @@ namespace Wootrade
             if (isPublic)
                 result = $"{BaseAddress}{apiVersion}/{publicPath}/{endpoint}/{resourceId}";
             else
-                result = $"{BaseAddress}{apiVersion}/{endpoint}/{resourceId}";
+            {
+                if (string.IsNullOrEmpty(resourceId))
+                {
+                    result = $"{BaseAddress}{apiVersion}/{endpoint}";
+                }
+                else
+                {
+                    result = $"{BaseAddress}{apiVersion}/{endpoint}/{resourceId}";
+                }
+            }
 
             return new Uri(result);
         }
@@ -201,6 +212,37 @@ namespace Wootrade
           Dictionary<string, object>? parameters = null, bool signed = false, bool checkResult = true, PostParameters? postPosition = null, ArrayParametersSerialization? arraySerialization = null) where T : class
         {
             return base.SendRequest<T>(uri, method, cancellationToken, parameters, signed, checkResult, postPosition);
+        }
+
+        protected override IRequest ConstructRequest(Uri uri, HttpMethod method, Dictionary<string, object>? parameters, bool signed, PostParameters postPosition, ArrayParametersSerialization arraySerialization, int requestId)
+        {
+            if (method != HttpMethod.Delete)
+                return base.ConstructRequest(uri, method, parameters, signed, postPosition, arraySerialization, requestId);
+            else
+            {
+                if (parameters == null)
+                    parameters = new Dictionary<string, object>();
+
+                var uriString = uri.ToString();
+                if (authProvider != null)
+                    parameters = authProvider.AddAuthenticationToParameters(uriString, method, parameters, signed, postPosition, arraySerialization);
+
+                var contentType = requestBodyFormat == RequestBodyFormat.Json ? Constants.JsonContentHeader : Constants.FormContentHeader;
+                var request = RequestFactory.Create(method, uriString, requestId);
+                request.Accept = Constants.JsonContentHeader;
+
+                var headers = new Dictionary<string, string>();
+                if (authProvider != null)
+                    headers = authProvider.AddAuthenticationToHeaders(uriString, method, parameters!, signed, postPosition, arraySerialization);
+
+                foreach (var header in headers)
+                    request.AddHeader(header.Key, header.Value);
+
+                if (parameters?.Any() == true)
+                    WriteParamBody(request, parameters, contentType);
+
+                return request;
+            }
         }
     }
 }
