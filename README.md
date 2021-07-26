@@ -6,7 +6,8 @@ This package is under construction, the following features are available:
 - WebSockets Streams for Spot Market
 - All public RESTful API endpoints available
 - Authenticated OrderBook Snapshot endpoint available
-- More coming
+- Important RESTful API Orders endpoints available such as Place Order, Get Order, Cancel Order
+- GetCurrentHoldings available
 
 If you find any issue or have questions, please please open an issue.
 
@@ -42,15 +43,37 @@ var symbols = await client.GetSymbolsAsync();
 ````
 
 ### Authenticated endpoints
+
+#### First setup the RestClient for all authenticated calls
 ````csharp
 WootradeClientOptions clientOptions = new WootradeClientOptions();
 clientOptions.ApiCredentials = new CryptoExchange.Net.Authentication.ApiCredentials(apiKey, apiSecret);
 
 IWootradeRestClient client = new WootradeRestClient(clientOptions);
+````
 
+#### Example: Get current order book status
+````csharp
 var orderbook = await client.GetOrderBookAsync("SPOT_ETH_USDT");
 ````
 
+#### Example: Place order
+
+Look how is easy to place an order:
+
+````csharp
+ WootradePlaceOrder order = new WootradePlaceOrder();
+
+order.ClientOrderId = 1;
+order.Price = 0.4m;
+order.Quantity = 15;
+order.Side = OrderSide.Buy;
+order.Symbol = "SPOT_WOO_USDT";
+order.Tag = "AnyTagYouWant";
+order.Type = OrderType.Limit;
+
+var result = await client.PlaceOrderAsync(order);
+````
 
 ## WebSockets Streams
 
