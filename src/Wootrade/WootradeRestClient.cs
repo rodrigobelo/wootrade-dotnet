@@ -11,6 +11,7 @@ using CryptoExchange.Net.Objects;
 using Newtonsoft.Json;
 using Wootrade.Converters;
 using Wootrade.Interfaces;
+using Wootrade.Model.AccountData;
 using Wootrade.Model.MarketData;
 using Wootrade.Model.Shared;
 using Wootrade.Model.Spot;
@@ -68,6 +69,14 @@ namespace Wootrade
             var result = await SendRequest<WootradeCancelOrderResponse>(this.GetUri("orders", false), HttpMethod.Delete, CancellationToken.None, parameters, true).ConfigureAwait(false);
 
             return result;
+        }
+
+        public async Task<WebCallResult<WootradeAccountInformation>> GetAccountInformation()
+        {
+            var result = await this.SendRequestInternal<WootradeAccountInformation>(this.GetUri("client/info", false), HttpMethod.Get, CancellationToken.None, null, true);
+
+            return new WebCallResult<WootradeAccountInformation>(result.ResponseStatusCode,
+                result.ResponseHeaders, result.Data, result.Error);
         }
 
         public async Task<WebCallResult<WootradeAvailableTokens>> GetAvailableTokensAsync()

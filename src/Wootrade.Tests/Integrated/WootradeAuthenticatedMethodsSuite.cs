@@ -55,6 +55,20 @@ namespace Wootrade.Tests.Integrated
         }
 
         [Fact]
+        public async Task WootradeRestClient_GetAccountInformation_Success()
+        {
+            var result = await client.GetAccountInformation();
+
+            Assert.NotNull(result);
+            Assert.True(result.Success);
+            Assert.NotNull(result.Data);
+            Assert.True(result.Data.Success);
+            Assert.NotNull(result.Data.Application);
+            Assert.NotNull(result.Data.Application.ApplicationId);
+            Assert.True(result.Data.Application.TakerFeeRate > 0);
+        }
+
+        [Fact]
         public async Task WootradeRestClient_GetCurrentHoldingsAsync_Success()
         {
             var result = await client.GetCurrentHoldingAsync(false);

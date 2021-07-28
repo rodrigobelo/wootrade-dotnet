@@ -2,7 +2,7 @@
 using CryptoExchange.Net.Converters;
 using Newtonsoft.Json;
 
-namespace Wootrade.Model.SpotData
+namespace Wootrade.Model.AccountData
 {
     public class WootradeCurrentHoldingEntry
     {
