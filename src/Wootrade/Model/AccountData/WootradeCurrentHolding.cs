@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace Wootrade.Model.SpotData
+namespace Wootrade.Model.AccountData
 {
     public class WootradeCurrentHolding
     {

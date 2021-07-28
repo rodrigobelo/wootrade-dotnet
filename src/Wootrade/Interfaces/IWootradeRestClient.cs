@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using CryptoExchange.Net.Objects;
+using Wootrade.Model.AccountData;
 using Wootrade.Model.MarketData;
 using Wootrade.Model.SpotData;
 
@@ -30,6 +31,12 @@ namespace Wootrade.Interfaces
         /// <param name="symbol"></param>
         /// <returns></returns>
         Task<WebCallResult<WootradeCancelOrderResponse>> CancelOrdersBySymbolAsync(string symbol);
+
+        /// <summary>
+        /// Get account information
+        /// </summary>
+        /// <returns></returns>
+        Task<WebCallResult<WootradeAccountInformation>> GetAccountInformation();
 
         /// <summary>
         /// Get available tokens that WooTrade supported, it need to use when you call get deposit
