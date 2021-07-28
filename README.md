@@ -15,7 +15,7 @@ If you find any issue or have questions, please please open an issue.
 
 |Name                             |nuget.org|
 |---------------------------------|----|
-|Wootrade.Net|[![Nuget Package](https://img.shields.io/nuget/v/Wootrade.Net.svg?logo=nuget)](https://www.nuget.org/packages/Wootrade.Net/)
+|Wootrade.Net|[![Nuget Package](https://img.shields.io/nuget/v/Wootrade.Net.svg?logo=nuget)](https://www.nuget.org/packages/Wootrade.Net/) ![Nuget downloads](https://img.shields.io/nuget/dt/Wootrade.Net.svg)
 
 ## Donations
 I develop and maintain this package on my own for free in my spare time. Donations are greatly appreciated.
