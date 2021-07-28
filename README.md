@@ -6,8 +6,8 @@ This package is under construction, the following features are available:
 - WebSockets Streams for Spot Market
 - All public RESTful API endpoints available
 - Authenticated OrderBook Snapshot endpoint available
-- Important RESTful API Orders endpoints available such as Place Order, Get Order, Cancel Order
-- GetCurrentHoldings available
+- Important RESTful API endpoints for Orders available such as PlaceOrder, GetOrder, CancelOrder
+- GetAccountInformation and GetCurrentHoldings endpoints available
 
 If you find any issue or have questions, please please open an issue.
 
