@@ -301,13 +301,5 @@ namespace Wootrade
             else
                 return (long)Math.Round(((DateTime)value! - new DateTime(1970, 1, 1)).TotalMilliseconds);
         }
-
-        private object GetEmptyIfNull(object obj)
-        {
-            if (obj is null)
-                return string.Empty;
-
-            return obj;
-        }
     }
 }
