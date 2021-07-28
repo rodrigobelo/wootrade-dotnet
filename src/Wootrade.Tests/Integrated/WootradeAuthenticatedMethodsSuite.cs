@@ -137,7 +137,8 @@ namespace Wootrade.Tests.Integrated
                 Tag = "Test",
                 Side = OrderSide.Buy,
                 Status = OrderStatus.Cancelled,
-                Type = OrderType.Limit
+                Type = OrderType.Limit,
+                StartDate = new System.DateTime(2021, 07, 26)
             });
 
             Assert.NotNull(result);

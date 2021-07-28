@@ -13,9 +13,9 @@ namespace Wootrade.Model.SpotData
 
         public OrderStatus? Status { get; set; }
 
-        public string Symbol { get; set; } = "";
+        public string? Symbol { get; set; }
 
-        public string Tag { get; set; } = "";
+        public string? Tag { get; set; }
 
         public OrderType? Type { get; set; }
 
