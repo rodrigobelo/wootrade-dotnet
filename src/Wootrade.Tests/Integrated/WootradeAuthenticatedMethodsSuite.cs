@@ -129,6 +129,23 @@ namespace Wootrade.Tests.Integrated
             Assert.Equal("Test", result.Data.Tag);
         }
 
+        [Fact]
+        public async Task WootradeRestClient_GetOrdersAsync_Success()
+        {
+            var result = await client.GetOrdersAsync(new GetOrdersFilter()
+            {
+                Tag = "Test",
+                Side = OrderSide.Buy,
+                Status = OrderStatus.Cancelled,
+                Type = OrderType.Limit
+            });
+
+            Assert.NotNull(result);
+            Assert.True(result.Success);
+            Assert.NotNull(result.Data);
+            Assert.True(result.Data.Any());
+        }
+
         [Fact(Skip = "Skipped")]
         public async Task WootradeRestClient_PlaceOrderAsync_Success()
         {

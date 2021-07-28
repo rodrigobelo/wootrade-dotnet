@@ -24,7 +24,8 @@ namespace Wootrade.Converters
             new KeyValuePair<OrderStatus, string>(OrderStatus.Rejected, "REJECTED"),
             new KeyValuePair<OrderStatus, string>(OrderStatus.Filled, "FILLED"),
             new KeyValuePair<OrderStatus, string>(OrderStatus.Incomplete, "INCOMPLETE"),
-            new KeyValuePair<OrderStatus, string>(OrderStatus.Complete, "COMPLETED")
+            new KeyValuePair<OrderStatus, string>(OrderStatus.Complete, "COMPLETED"),
+            new KeyValuePair<OrderStatus, string>(OrderStatus.Cancelled, "CANCELLED")
         };
 
         public override object ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)

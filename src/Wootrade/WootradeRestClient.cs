@@ -126,6 +126,46 @@ namespace Wootrade
                 result.ResponseHeaders, result.Data, result.Error);
         }
 
+        public async Task<WebCallResult<IEnumerable<WootradeOrderInfo>>> GetOrdersAsync(GetOrdersFilter filter)
+        {
+            var orders = new List<WootradeOrderInfo>();
+
+            WebCallResult<WootradeGetOrdersPage>? lastResult;
+
+            do
+            {
+                filter.Page++;
+
+                var parameters = new Dictionary<string, object>();
+
+                parameters.AddOptionalParameter("symbol", filter.Symbol);
+                parameters.AddOptionalParameter("side", filter.Side?.ToString().ToUpper());
+                parameters.AddOptionalParameter("order_type", filter.Type?.ToString().ToUpper());
+                parameters.AddOptionalParameter("order_tag", filter.Tag);
+                parameters.AddOptionalParameter("status", filter.Status?.ToString().ToUpper());
+                parameters.AddOptionalParameter("start_t", this.GetDateInSeconds(filter.StartDate));
+                parameters.AddOptionalParameter("end_t", this.GetDateInSeconds(filter.EndDate));
+                parameters.AddOptionalParameter("page", filter.Page);
+
+                lastResult = await SendRequest<WootradeGetOrdersPage>(this.GetUri("orders", false), HttpMethod.Get, CancellationToken.None, parameters, true).ConfigureAwait(false);
+
+                if (lastResult.Success)
+                {
+                    orders.AddRange(lastResult.Data.Orders);
+                }
+            } while (lastResult.Success
+                    && lastResult.Data.Success
+                    && lastResult.Data.Orders.Any()
+                    && lastResult.Data.Orders.Count() >= lastResult.Data.Meta.RecordsPerPage
+            );
+
+            return new WebCallResult<IEnumerable<WootradeOrderInfo>>(
+                lastResult.ResponseStatusCode,
+                lastResult.ResponseHeaders,
+                orders,
+                lastResult.Error);
+        }
+
         public async Task<WebCallResult<WootradeMarketTrades>> GetRecentTradesAsync(string symbol)
         {
             var parameters = new Dictionary<string, object>();
@@ -252,6 +292,22 @@ namespace Wootrade
 
                 return request;
             }
+        }
+
+        private object GetDateInSeconds(DateTime? value)
+        {
+            if (value is null)
+                return null!;
+            else
+                return (long)Math.Round(((DateTime)value! - new DateTime(1970, 1, 1)).TotalMilliseconds);
+        }
+
+        private object GetEmptyIfNull(object obj)
+        {
+            if (obj is null)
+                return string.Empty;
+
+            return obj;
         }
     }
 }
