@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using CryptoExchange.Net.Objects;
 using Wootrade.Model.AccountData;
@@ -71,6 +72,12 @@ namespace Wootrade.Interfaces
         /// <param name="orderId"></param>
         /// <returns></returns>
         Task<WebCallResult<WootradeOrderInfo>> GetOrderByWootradeOrderIdAsync(int orderId);
+
+        /// <summary>
+        /// Get orders by filter
+        /// </summary>
+        /// <returns>All orders for a given filter</returns>
+        Task<WebCallResult<IEnumerable<WootradeOrderInfo>>> GetOrdersAsync(GetOrdersFilter filter);
 
         /// <summary>
         /// Get latest market trades

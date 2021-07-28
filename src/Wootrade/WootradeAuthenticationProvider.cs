@@ -66,27 +66,22 @@ namespace Wootrade
         private static string GetDataToBeSigned(HttpMethod method, Dictionary<string, object> parameters, PostParameters postParameterPosition, ArrayParametersSerialization arraySerialization, string timestamp)
         {
             string signData;
-
-            if (method == HttpMethod.Get || (postParameterPosition == PostParameters.InUri))
+            
+            var formData = HttpUtility.ParseQueryString(string.Empty);
+            foreach (var kvp in parameters.OrderBy(p => p.Key))
             {
-                signData = parameters.CreateParamString(true, arraySerialization);
-            }
-            else
-            {
-                var formData = HttpUtility.ParseQueryString(string.Empty);
-                foreach (var kvp in parameters.OrderBy(p => p.Key))
+                if (kvp.Value.GetType().IsArray)
                 {
-                    if (kvp.Value.GetType().IsArray)
-                    {
-                        var array = (Array)kvp.Value;
-                        foreach (var value in array)
-                            formData.Add(kvp.Key, value.ToString());
-                    }
-                    else
-                        formData.Add(kvp.Key, kvp.Value.ToString());
+                    var array = (Array)kvp.Value;
+                    foreach (var value in array)
+                        formData.Add(kvp.Key, value.ToString());
                 }
-                signData = formData.ToString();
+                else
+                    formData.Add(kvp.Key, kvp.Value.ToString());
             }
+
+            signData = formData.ToString();
+            
 
             return signData + "|" + timestamp;
         }
