@@ -1,4 +1,4 @@
-# Wootrade DotNet
+# ![Icon](https://github.com/rodrigobelo/wootrade-dotnet/blob/main/wootrade-dotnet-icon.png?raw=true) Wootrade DotNet
 A .NET Standard 2.0/2.1 Client for Wootrade API. 
 
 ## Features
@@ -17,6 +17,60 @@ If you find any issue or have questions, please please open an issue.
 |---------------------------------|----|
 |Wootrade.Net|[![Nuget Package](https://img.shields.io/nuget/v/Wootrade.Net.svg?logo=nuget)](https://www.nuget.org/packages/Wootrade.Net/) ![Nuget downloads](https://img.shields.io/nuget/dt/Wootrade.Net.svg)
 
+
+## CryptoExchange.Net
+Implementation is build upon the CryptoExchange.Net library, make sure to also check out the documentation on that: [docs](https://github.com/JKorf/CryptoExchange.Net)
+
+Other CryptoExchange.Net implementations:
+<table>
+<tr>
+<td><a href="https://github.com/JKorf/Bitfinex.Net"><img src="https://github.com/JKorf/Bitfinex.Net/blob/master/Bitfinex.Net/Icon/icon.png?raw=true"></a>
+<br />
+<a href="https://github.com/JKorf/Bitfinex.Net">Bitfinex</a>
+</td>
+<td><a href="https://github.com/JKorf/Bittrex.Net"><img src="https://github.com/JKorf/Bittrex.Net/blob/master/Bittrex.Net/Icon/icon.png?raw=true"></a>
+<br />
+<a href="https://github.com/JKorf/Bittrex.Net">Bittrex</a>
+</td>
+<td><a href="https://github.com/JKorf/Binance.Net"><img src="https://github.com/JKorf/Binance.Net/blob/master/Binance.Net/Icon/icon.png?raw=true"></a>
+<br />
+<a href="https://github.com/JKorf/Binance.Net">Binance</a>
+</td>
+<td><a href="https://github.com/JKorf/CoinEx.Net"><img src="https://github.com/JKorf/CoinEx.Net/blob/master/CoinEx.Net/Icon/icon.png?raw=true"></a>
+<br />
+<a href="https://github.com/JKorf/CoinEx.Net">CoinEx</a>
+</td>
+<td><a href="https://github.com/JKorf/Huobi.Net"><img src="https://github.com/JKorf/Huobi.Net/blob/master/Huobi.Net/Icon/icon.png?raw=true"></a>
+<br />
+<a href="https://github.com/JKorf/Huobi.Net">Huobi</a>
+</td>
+<td><a href="https://github.com/JKorf/Kucoin.Net"><img src="https://github.com/JKorf/Kucoin.Net/blob/master/Kucoin.Net/Icon/icon.png?raw=true"></a>
+<br />
+<a href="https://github.com/JKorf/Kucoin.Net">Kucoin</a>
+</td>
+<td><a href="https://github.com/JKorf/Kraken.Net"><img src="https://github.com/JKorf/Kraken.Net/blob/master/Kraken.Net/Icon/icon.png?raw=true"></a>
+<br />
+<a href="https://github.com/JKorf/Kraken.Net">Kraken</a>
+</td>
+<td><a href="https://github.com/Zaliro/Switcheo.Net"><img src="https://github.com/Zaliro/Switcheo.Net/blob/master/Resources/switcheo-coin.png?raw=true"></a>
+<br />
+<a href="https://github.com/Zaliro/Switcheo.Net">Switcheo</a>
+</td>
+<td><a href="https://github.com/ridicoulous/LiquidQuoine.Net"><img src="https://github.com/ridicoulous/LiquidQuoine.Net/blob/master/Resources/icon.png?raw=true"></a>
+<br />
+<a href="https://github.com/ridicoulous/LiquidQuoine.Net">Liquid</a>
+</td>
+<td><a href="https://github.com/burakoner/OKEx.Net"><img src="https://raw.githubusercontent.com/burakoner/OKEx.Net/master/Okex.Net/Icon/icon.png"></a>
+<br />
+<a href="https://github.com/burakoner/OKEx.Net">OKEx</a>
+</td>
+<td><a href="https://github.com/d-ugarov/Exante.Net"><img src="https://github.com/d-ugarov/Exante.Net/blob/master/Exante.Net/Icon/icon.png?raw=true"></a>
+<br />
+<a href="https://github.com/d-ugarov/Exante.Net">Exante</a>
+</td>
+</tr>
+</table>
+
 ## Donations
 I develop and maintain this package on my own for free in my spare time. Donations are greatly appreciated.
 
@@ -24,7 +78,7 @@ I develop and maintain this package on my own for free in my spare time. Donatio
 
 **ETH**: 0x90badAB95512Ae586d376a5C64B7dF4f21C5e5cD
 
-## Installation
+## Getting started
 Use your VS Package Manager Console to run the following command:
 
 ```
