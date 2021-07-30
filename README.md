@@ -1,12 +1,13 @@
 # ![Icon](https://github.com/rodrigobelo/wootrade-dotnet/blob/main/wootrade-dotnet-icon.png?raw=true) Wootrade DotNet
-A .NET Standard 2.0/2.1 Client for Wootrade API. 
+A .NET Standard 2.0/2.1 Client for [Wootrade](http://x.woo.network/) [API](https://kronosresearch.github.io/wootrade-documents/#introduction). 
 
 ## Features
 This package is under construction, the following features are available:
 - WebSockets Streams for Spot Market
 - All public RESTful API endpoints available
-- Authenticated OrderBook Snapshot endpoint available
-- Important RESTful API endpoints for Orders available such as PlaceOrder, GetOrder, GetOrders and CancelOrder
+- Important RESTful API endpoints 
+   - OrderBook Snapshot
+   - Orders operations such as PlaceOrder, GetOrder, GetOrders and CancelOrder
 - GetAccountInformation and GetCurrentHoldings endpoints available
 
 If you find any issue or have questions, please please open an issue.
